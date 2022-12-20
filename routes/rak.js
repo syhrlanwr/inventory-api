@@ -7,7 +7,9 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    console.log(req.body);
     const nama = req.body.nama;
+    console.log(req.body);
     const rak = await Rak.create({
         nama : nama
     });
