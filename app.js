@@ -23,6 +23,7 @@ try {
 app.use(cors());
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/rak', require('./routes/rak'));
 app.use('/jenis', require('./routes/jenis'));
