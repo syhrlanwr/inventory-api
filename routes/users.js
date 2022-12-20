@@ -1,7 +1,9 @@
+const verifyToken = require('../middleware/verifyToken');
 const Users = require('../models/Users');
 const router = require('express').Router();
+const jwt = require('jsonwebtoken');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken ,async (req, res) => {
     const users = await Users.findAll();
     res.json(users);
 });

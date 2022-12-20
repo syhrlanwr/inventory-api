@@ -10,6 +10,7 @@ const Barang = require('./models/Barang');
 const Pegawai = require('./models/Pegawai');
 const Users = require('./models/Users');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 try {
   db.authenticate();
@@ -20,8 +21,11 @@ try {
 }
 
 
-app.use(cors());
-
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
+app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
 
@@ -31,6 +35,7 @@ app.use('/satuan', require('./routes/satuan'));
 app.use('/barang', require('./routes/barang'));
 app.use('/pegawai', require('./routes/pegawai'));
 app.use('/users', require('./routes/users'));
+app.use('/auth', require('./routes/auth'));
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

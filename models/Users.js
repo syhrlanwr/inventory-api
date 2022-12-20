@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 const db = require('../config/database');
 const { DataTypes } = Sequelize;
 
-const User = db.define('users', {
+const Users = db.define('users', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -25,6 +25,10 @@ const User = db.define('users', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  refreshToken: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
-module.exports = User;
+module.exports = Users;
