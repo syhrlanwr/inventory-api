@@ -51,8 +51,10 @@ router.post('/login', async (req, res) => {
 
 router.get('/token', async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
+    console.log(refreshToken);
     if (!refreshToken) {
         res.sendStatus(401);
+        return;
     }
     
     const users = await Users.findOne({
@@ -63,17 +65,20 @@ router.get('/token', async (req, res) => {
 
     if (users === null) {
         res.sendStatus(403);
+        return;
     }
 
     jwt.verify(refreshToken, 'secret', (err, user) => {
-        if (err) return res.sendStatus(403);
+        if (err){
+            res.sendStatus(403);
+            return;
+        }
         const accessToken = jwt.sign({
             userId: user.userId,
             name: user.name,
             username: user.username
         }, 'secret', { expiresIn: '20s' });
         res.json({ accessToken });
-
     });
 });
 
