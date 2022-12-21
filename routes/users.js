@@ -8,6 +8,15 @@ router.get('/', verifyToken ,async (req, res) => {
     res.json(users);
 });
 
+router.get('/me', verifyToken, async (req, res) => {
+    const users = await Users.findOne({
+        where: {
+            id: req.user.userId
+        }
+    });
+    res.json(users);
+});
+
 router.post('/', async (req, res) => {
     const name = req.body.name;
     const username = req.body.username;
