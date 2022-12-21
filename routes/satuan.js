@@ -14,6 +14,18 @@ router.post('/', async (req, res) => {
     res.json(satuan);
 });
 
+
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+    const nama = req.body.nama;
+    const satuan = await Satuan.findOne({
+        where: {
+            id: id
+        }
+    });
+    res.json(satuan);
+});
+
 router.put('/:id', async (req, res) => {
     const id = req.params.id;
     const nama = req.body.nama;
