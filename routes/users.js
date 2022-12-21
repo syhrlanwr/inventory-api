@@ -1,7 +1,6 @@
 const verifyToken = require('../middleware/verifyToken');
 const Users = require('../models/Users');
 const router = require('express').Router();
-const jwt = require('jsonwebtoken');
 
 router.get('/', verifyToken ,async (req, res) => {
     const users = await Users.findAll();
@@ -16,6 +15,19 @@ router.post('/', async (req, res) => {
         name: name,
         username: username,
         password: password
+    });
+    res.json(users);
+});
+
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+    const name = req.body.name;
+    const username = req.body.username;
+    const password = req.body.password;
+    const users = await Users.findOne({
+        where: {
+            id: id
+        }
     });
     res.json(users);
 });

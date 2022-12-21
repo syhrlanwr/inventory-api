@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const db = new Sequelize('inventory-api', 'root', "1", {
+const db = new Sequelize('inventory-api', 'root', "", {
     host: 'localhost',
     dialect: 'mysql',
     timezone: '+07:00'

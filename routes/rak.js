@@ -16,6 +16,17 @@ router.post('/', async (req, res) => {
     res.json(rak);
 });
 
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+    const nama = req.body.nama;
+    const rak = await Rak.findOne({
+        where: {
+            id: id
+        }
+    });
+    res.json(rak);
+})
+
 router.put('/:id', async (req, res) => {
     const id = req.params.id;
     const nama = req.body.nama;

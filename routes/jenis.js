@@ -14,6 +14,17 @@ router.post('/', async (req, res) => {
     res.json(jenis);
 });
 
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+    const nama = req.body.nama;
+    const jenis = await Jenis.findOne({
+        where: {
+            id: id
+        }
+    });
+    res.json(jenis);
+})
+
 router.put('/:id', async (req, res) => {
     const id = req.params.id;
     const nama = req.body.nama;
