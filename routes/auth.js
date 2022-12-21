@@ -11,10 +11,8 @@ router.post('/login', async (req, res) => {
         },
     });
     if (users === null) {
-        res.json({ message: 'Username Tidak Ditemukan' });
-    }
-
-    if (users.password === password) {
+        res.status(401).json({ message: 'Username Salah' });
+    } else if (users.password === password) {
         const userId = users.id;
         const name = users.name;
         const username = users.username;
@@ -47,7 +45,7 @@ router.post('/login', async (req, res) => {
 
 
     } else {
-        res.json({ message: 'Password Salah' });
+        res.status(401).json({ message: 'Password Salah' });
     }
 });
 
