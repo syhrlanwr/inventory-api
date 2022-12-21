@@ -21,10 +21,6 @@ const Users = db.define('users', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  image: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
   refreshToken: {
     type: DataTypes.STRING,
     allowNull: true,

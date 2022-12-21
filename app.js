@@ -15,7 +15,7 @@ const cookieParser = require('cookie-parser');
 try {
   db.authenticate();
   console.log('Database connected');
-  Users.sync();
+  Jenis.sync();
 } catch (error) {
   console.log(error);
 }
