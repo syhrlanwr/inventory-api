@@ -11,11 +11,14 @@ const Pegawai = require('./models/Pegawai');
 const Users = require('./models/Users');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const BarangKeluar = require('./models/BarangKeluar');
+const Pengembalian = require('./models/Pengembalian');
+const Laporan = require('./models/Laporan');
 
 try {
   db.authenticate();
   console.log('Database connected');
-  Barang.sync();
+  Laporan.sync();
 } catch (error) {
   console.log(error);
 }
@@ -34,6 +37,11 @@ app.use('/satuan', require('./routes/satuan'));
 app.use('/barang', require('./routes/barang'));
 app.use('/pegawai', require('./routes/pegawai'));
 app.use('/users', require('./routes/users'));
+app.use('/barangkeluar', require('./routes/barangkeluar'));
+app.use('/pengembalian', require('./routes/pengembalian'));
+app.use('/laporan', require('./routes/laporan'));
+
+
 app.use('/auth', require('./routes/auth'));
 
 app.listen(port, () => {

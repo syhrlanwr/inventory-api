@@ -9,10 +9,6 @@ const Pengembalian = db.define('pengembalian', {
         primaryKey: true,
         autoIncrement: true
     },
-    tanggal: {
-        type: Sequelize.DATE,
-        allowNull: false
-    },
     jumlah: {
         type: Sequelize.INTEGER,
         allowNull: false

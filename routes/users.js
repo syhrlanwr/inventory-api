@@ -43,9 +43,11 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const id = req.params.id;
-    const nama = req.body.nama;
+    const name = req.body.name;
+    const username = req.body.username;
+    const password = req.body.password;
     const users = await Users.update({
-        nama : nama,
+        name : name,
         username : username,
         password : password
     }, {

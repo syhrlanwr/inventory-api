@@ -1,4 +1,11 @@
 const Barang = require('../models/Barang');
+const Laporan = require('../models/Laporan');
+const Rak = require('../models/Rak');
+const Satuan = require('../models/Satuan');
+const Jenis = require('../models/Jenis');
+const Pegawai = require('../models/Pegawai');
+const Users = require('../models/Users');
+const BarangKeluar = require('../models/BarangKeluar');
 const router = require('express').Router();
 
 router.get('/', async (req, res) => {
@@ -13,6 +20,24 @@ router.get('/', async (req, res) => {
     });
     res.json(barang);
 });
+
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+    const barang = await Barang.findOne({
+        where: {
+            id: id
+        },
+        include: [
+            'jenis',
+            'rak',
+            'satuan',
+            'pegawai',
+            'user'
+        ]
+    });
+    res.json(barang);
+});
+
 
 router.post('/', async (req, res) => {
     const nama = req.body.nama;
@@ -31,6 +56,33 @@ router.post('/', async (req, res) => {
         pegawai_id : pegawai_id,
         user_id : user_id
     });
+
+    const peminjam = await Pegawai.findOne({
+        where: {
+            id: pegawai_id
+        }
+    });
+    const satuan = await Satuan.findOne({
+        where: {
+            id: satuan_id
+        }
+    });
+
+    const user = await Users.findOne({
+        where: {
+            id: user_id
+        }
+    });
+    
+    const laporan = await Laporan.create({
+        nama_barang: nama,
+        jumlah: jumlah + ' ' + satuan.nama,
+        keterangan: 'masuk',
+        user : user.name,
+        peminjam: peminjam.nama,
+        tanggal: new Date()
+    });
+
     res.json(barang);
 });
 
