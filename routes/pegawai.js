@@ -6,6 +6,16 @@ router.get('/', async (req, res) => {
   res.json(pegawai);
 });
 
+router.get('/:id', async (req, res) => {
+  const id = req.params.id;
+  const pegawai = await Pegawai.findOne({
+    where: {
+      id: id,
+    },
+  });
+  res.json(pegawai);
+});
+
 router.post('/', async (req, res) => {
   const nama = req.body.nama;
   const nip = req.body.nip;
@@ -31,7 +41,7 @@ router.put('/:id', async (req, res) => {
       },
     }
   );
-  req.json(pegawai);
+  res.json(pegawai);
 });
 
 router.delete('/:id', async (req, res) => {
