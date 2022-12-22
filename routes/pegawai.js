@@ -26,6 +26,18 @@ router.post('/', async (req, res) => {
   res.json(pegawai);
 });
 
+router.get('/:id', async (req, res) => {
+  const id = req.params.id;
+  const nama = req.body.nama;
+  const nip = req.body.username;
+  const users = await Users.findOne({
+      where: {
+          id: id
+      }
+  });
+  res.json(users);
+});
+
 router.put('/:id', async (req, res) => {
   const id = req.params.id;
   const nama = req.body.nama;
