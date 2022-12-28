@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
     const rak_id = req.body.rak_id;
     const satuan_id = req.body.satuan_id;
     const pegawai_id = req.body.pegawai_id;
-    const user_id = req.body.user_id;
+    const user_id = req.user.userId
     const barang = await Barang.create({
         nama : nama,
         jenis_id : jenis_id,
@@ -95,8 +95,8 @@ router.put('/:id', async (req, res) => {
         rak_id,
         satuan_id,
         pegawai_id,
-        user_id
     } = req.body;
+    const user_id = req.user.userId
     const barang = await Barang.update({
         nama : nama,
         jenis_id : jenis_id,

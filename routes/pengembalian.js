@@ -34,8 +34,8 @@ router.post('/', async (req, res) => {
     const {
         barangkeluar_id,
         jumlah,
-        user_id,
     } = req.body;
+    const user_id = req.user.userId;
     const pengembalian = await Pengembalian.create({
         barangkeluar_id : barangkeluar_id,
         jumlah : jumlah,
@@ -120,8 +120,6 @@ router.put('/:id', async (req, res) => {
     const {
         barangkeluar_id,
         jumlah,
-        user_id,
-        pegawai_id
     } = req.body;
     const pengembalian = await Pengembalian.findOne({
         where: {
@@ -151,11 +149,32 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     const id = req.params.id;
-    const pengembalian = await Pengembalian.destroy({
+    const pengembalian = await Pengembalian.findOne({
         where: {
             id: id
         }
     });
+
+    const barangkeluar = await BarangKeluar.findOne({
+        where: {
+            id: pengembalian.barangkeluar_id
+        }
+    });
+
+    const barang = await Barang.findOne({
+        where: {
+            id: barangkeluar.barang_id
+        }
+    });
+    
+    const jumlahBarang = parseInt(barang.jumlah) - parseInt(pengembalian.jumlah);
+
+    barang.jumlah = jumlahBarang;
+    barang.save();
+
+    pengembalian.destroy();
+
+
     res.json(pengembalian);
 });
 

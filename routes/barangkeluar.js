@@ -27,9 +27,9 @@ router.post('/', async (req, res) => {
     const {
         barang_id,
         jumlah,
-        user_id,
         pegawai_id
     } = req.body;
+    const user_id = req.user.userId;
     const barangkeluar = await BarangKeluar.create({
         barang_id : barang_id,
         jumlah : jumlah,
@@ -110,9 +110,9 @@ router.put('/:id', async (req, res) => {
     const {
         barang_id,
         jumlah,
-        user_id,
         pegawai_id
     } = req.body;
+    const user_id = req.user.userId;
     const barangkeluar = await BarangKeluar.findOne({
         where: {
             id: id
